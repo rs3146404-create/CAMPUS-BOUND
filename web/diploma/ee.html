@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Department Details - Campus Bound</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Epilogue:wght@700;800&family=Be+Vietnam+Pro:wght@500&family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="./../../ashart/icon/icon.png">
+<script id="tailwind-config">
+    
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fcf9f8",
+                        "on-primary-fixed": "#001b3e",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1b1c1c",
+                        "on-tertiary-container": "#8fb08b",
+                        "on-primary-container": "#80a7ed",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434750",
+                        "tertiary": "#102c12",
+                        "on-secondary-fixed": "#002106",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed-variant": "#154685",
+                        "inverse-primary": "#aac7ff",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7",
+                        "outline-variant": "#c3c6d2",
+                        "primary-fixed-dim": "#aac7ff",
+                        "on-secondary-fixed-variant": "#00531b",
+                        "secondary-fixed": "#8ffa97",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#aecfa9",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container-low": "#f6f3f2",
+                        "outline": "#737781",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#8cf794",
+                        "primary-container": "#003b7a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#264327",
+                        "on-secondary-container": "#007328",
+                        "inverse-surface": "#303030",
+                        "tertiary-fixed": "#c9ecc4",
+                        "on-tertiary-fixed": "#052108",
+                        "on-background": "#1b1c1c",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#006e26",
+                        "background": "#fcf9f8",
+                        "secondary-fixed-dim": "#73dd7d",
+                        "surface-container": "#f0eded",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-tint": "#345e9f",
+                        "primary": "#002652",
+                        "on-tertiary-fixed-variant": "#314e30",
+                        "surface-variant": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "rule-height": "32px",
+                        "gutter": "24px",
+                        "margin-page": "40px"
+                    },
+                    "fontFamily": {
+                        "annotation": ["Be Vietnam Pro", "sans-serif"],
+                        "display-lg-mobile": ["Caveat", "cursive"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "display-lg": ["Caveat", "cursive"],
+                        "headline-md": ["Caveat", "cursive"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "annotation": ["15px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-lg": ["56px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.surface');
+            background-image: 
+                linear-gradient(90deg, transparent 39px, rgba(186, 26, 26, 0.3) 39px, rgba(186, 26, 26, 0.3) 41px, transparent 41px),
+                linear-gradient(rgba(0, 59, 122, 0.1) 1px, transparent 1px);
+            background-size: 100% theme('spacing.rule-height');
+            background-position: 0 0;
+            overflow-x: hidden;
+        }
+
+        .paper-card {
+            background-color: theme('colors.surface-container-lowest');
+            border: 2px solid theme('colors.primary');
+            box-shadow: 4px 4px 0px rgba(0, 38, 82, 0.2);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .paper-card:hover {
+            transform: translateY(-2px) rotate(1deg);
+            box-shadow: 6px 6px 0px rgba(0, 38, 82, 0.25);
+        }
+
+        .wobbly-border {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        .wobbly-border-2 {
+            border-radius: 15px 225px 15px 255px/255px 15px 225px 15px;
+        }
+
+        .marker-highlight {
+            background: linear-gradient(104deg, rgba(140, 247, 148, 0) 0.9%, rgba(140, 247, 148, 1) 2.4%, rgba(140, 247, 148, 0.5) 5.8%, rgba(140, 247, 148, 0.1) 93%, rgba(140, 247, 148, 0.7) 96%, rgba(140, 247, 148, 0) 98%), linear-gradient(183deg, rgba(140, 247, 148, 0) 0%, rgba(140, 247, 148, 0.3) 7.9%, rgba(140, 247, 148, 0) 15%);
+            padding: 0 0.2em;
+        }
+
+        .tape {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+            z-index: 10;
+        }
+        .tape-top { top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 100px; height: 25px; }
+        .tape-corner-tr { top: -10px; right: -10px; transform: rotate(45deg); width: 80px; height: 25px; }
+        .tape-corner-tl { top: -10px; left: -10px; transform: rotate(-45deg); width: 80px; height: 25px; }
+        
+        .polaroid {
+            background: white;
+            padding: 8px 8px 32px 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid theme('colors.outline-variant');
+            transition: transform 0.3s;
+        }
+        
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 20;
+        }
+
+        .handwritten-font {
+            font-family: 'Caveat', cursive;
+            font-weight: 700;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: theme('colors.primary');
+            border-radius: 5px;
+            transform: rotate(-1deg);
+        }
+    </style>
+</head>
+
+<body class="text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-sm fixed top-0 w-full z-50 border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-margin-page py-4 max-w-full">
+<a class="flex items-center gap-2 group" href="./../home page/home.html">
+<img alt="Green hand-drawn leaf icon" class="w-8 h-8 object-contain transform group-hover:-rotate-12 transition-transform" src="./../../ashart/icon/icon.png">
+<span class="handwritten-font text-headline-md tracking-tight text-primary dark:text-primary-fixed">
+    CAMPUS BOUND
+</span>
+</a>
+</header>
+<main class="flex-grow pl-margin-page pr-4 md:px-margin-page max-w-7xl mx-auto w-full pt-8 pb-24 space-y-16">
+<!-- Header / Breadcrumb -->
+<!-- Hero Section -->
+<section class="text-center py-8">
+    <p>..........................................</p>
+<h1 class="font-display-lg-mobile md:font-display-lg text-primary mb-4 transform -rotate-1 handwritten-font"> <span class="marker-highlight">ELECTRICAL ENGINEERING</span></h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mt-6 bg-surface-container-low p-4 rounded-lg wobbly-border-2 border border-outline-variant shadow-sm transform rotate-1">
+           Where power meets innovation. Building the electrical infrastructure of tomorrow through rigorous circuit analysis, practical experimentation, and hands-on electrical engineering.
+ </p>
+</section>
+<!-- Section 01: Laboratories -->
+<section>
+<h2 class="font-headline-md text-primary mb-8 handwritten-font section-title">01. Our Semester</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Lab Card 1 -->
+<div class="paper-card wobbly-border p-6 transform -rotate-2">
+<div class="tape tape-top"></div>
+<h3 class="font-headline-md text-primary mb-2 handwritten-font"> Introduction to Electric Generation Systems Lab</h3>
+<p class="font-body-md text-on-surface-variant mb-4">Equipped with modern power generation equipment and facilities for practical training, electrical experiments, and understanding electric generation systems.</p>
+<div class="text-secondary flex items-center gap-2 font-label-caps">
+<span class="material-symbols-outlined text-sm">check_circle</span> Modern Power Generation Equipment
+                    </div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<button class="text-primary handwritten-font text-xl flex items-center gap-1 hover:underline">
+        Explore the Lab <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+</button>
+</div></div>
+<!-- Lab Card 2 -->
+<div class="paper-card wobbly-border-2 p-6 transform rotate-1">
+<div class="tape tape-corner-tr"></div>
+<h3 class="font-headline-md text-primary mb-2 handwritten-font">Electrical Circuits Lab</h3>
+<p class="font-body-md text-on-surface-variant mb-4">Dedicated space for studying electrical circuits, circuit analysis, measurements, and practical experiments using modern laboratory equipment.</p>
+<div class="text-secondary flex items-center gap-2 font-label-caps">
+<span class="material-symbols-outlined text-sm">check_circle</span> Advanced Circuit Testing Equipment
+                    </div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<button class="text-primary handwritten-font text-xl flex items-center gap-1 hover:underline">
+        Explore the Lab <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+</button>
+</div></div>
+<!-- Lab Card 3 -->
+<div class="paper-card wobbly-border p-6 transform -rotate-1">
+<div class="tape tape-corner-tl"></div>
+<h3 class="font-headline-md text-primary mb-2 handwritten-font">Electrical and Electronic Measurement Lab</h3>
+<p class="font-body-md text-on-surface-variant mb-4">Provides hands-on experience with electrical and electronic measuring instruments, measurement techniques, sensors, and practical testing.</p>
+<div class="text-secondary flex items-center gap-2 font-label-caps">
+<span class="material-symbols-outlined text-sm">check_circle</span> Advanced Measurement Equipment
+                    </div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<button class="text-primary handwritten-font text-xl flex items-center gap-1 hover:underline">
+        Explore the Lab <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+</button>
+</div></div>
+</div>
+</section>
+<!-- Section 02: Semester & Subjects -->
+<section class="mt-16">
+<!-- <h2 class="font-headline-md text-primary mb-8 handwritten-font section-title">02. Course Structure</h2> -->
+<!-- Tabs -->
+<div class="flex flex-wrap gap-2 mb-8 border-b-2 border-outline-variant pb-2">
+<button class="px-4 py-2 font-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-t-lg transition-colors">SEM 1</button>
+<button class="px-4 py-2 font-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-t-lg transition-colors">SEM 2</button>
+<button class="px-4 py-2 font-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-t-lg transition-colors">SEM 3</button>
+<button class="px-4 py-2 font-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-t-lg transition-colors">SEM 4</button>
+<button class="px-4 py-2 font-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-t-lg transition-colors">SEM 5</button>
+<button class="px-4 py-2 font-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-t-lg transition-colors">SEM 6</button>
+</div>
+<!-- Subject Grid -->
+</section>
+<!-- Section 03/04: Faculty -->
+<section class="mt-16">
+<h2 class="font-headline-md text-primary mb-8 handwritten-font section-title">02. Faculty</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Faculty 1 -->
+<div class="polaroid transform rotate-2 mx-auto">
+<div class="w-full h-48 bg-surface-variant mb-2 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-4xl">person</span>
+</div>
+<h4 class="text-2xl text-on-surface text-center handwritten-font">Dr. Alan Turing</h4>
+<p class="text-xs text-center text-on-surface-variant uppercase font-label-caps">HOD</p>
+</div>
+<!-- Faculty 2 -->
+<div class="polaroid transform -rotate-1 mx-auto">
+<div class="w-full h-48 bg-surface-variant mb-2 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-4xl">person</span>
+</div>
+<h4 class="text-2xl text-on-surface text-center handwritten-font">Ada Lovelace</h4>
+<p class="text-xs text-center text-on-surface-variant uppercase font-label-caps">Assistant Professor</p>
+</div>
+<!-- Faculty 3 -->
+<div class="polaroid transform rotate-1 mx-auto">
+<div class="w-full h-48 bg-surface-variant mb-2 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-4xl">person</span>
+</div>
+<h4 class="text-2xl text-on-surface text-center handwritten-font">Grace Hopper</h4>
+<p class="text-xs text-center text-on-surface-variant uppercase font-label-caps">Lecturer</p>
+</div>
+</div>
+</section>
+
+<section class="mt-16">
+
+    <h2 class="font-headline-md text-primary mb-8 handwritten-font section-title">
+        03. Syllabus
+    </h2>
+
+    <div class="paper-card p-8 text-center">
+
+        <span class="material-symbols-outlined text-primary text-5xl mb-4">
+            picture_as_pdf
+        </span>
+
+        <h3 class="text-3xl handwritten-font text-on-surface mb-3">
+            Science & Humanities Syllabus
+        </h3>
+
+        <p class="text-on-surface-variant mb-6">
+            View or download the complete semester-wise syllabus.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+
+            <!-- Open PDF -->
+            <a href="./../../ashart/syllabus/Diploma/Syllabus_1st__2nd_Semester_compressed.pdf"
+               target="_blank"
+               class="px-6 py-3 bg-primary text-on-primary rounded-full handwritten-font text-xl hover:scale-105 transition">
+                <span class="material-symbols-outlined align-middle mr-2">
+                    visibility
+                </span>
+                View Syllabus
+            </a>
+
+            <!-- Download PDF -->
+            <a href="./../../ashart/syllabus/Diploma/Syllabus_1st__2nd_Semester_compressed.pdf"
+               download
+               class="px-6 py-3 border-2 border-primary text-primary rounded-full handwritten-font text-xl hover:bg-primary hover:text-on-primary transition">
+                <span class="material-symbols-outlined align-middle mr-2">
+                    download
+                </span>
+                Download PDF
+            </a>
+
+        </div>
+
+        <!--pdf 2-->
+        <p>-</p>
+
+        <h3 class="text-3xl handwritten-font text-on-surface mb-3">
+            Electrical Engineering Syllabus
+        </h3>
+
+        <p class="text-on-surface-variant mb-6">
+            View or download the complete semester-wise syllabus.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+
+            <!-- Open PDF -->
+            <a href="./../../ashart/syllabus/Diploma/EE_Syllabus_3rd4th5th6th_Semester_compressed.pdf"
+               target="_blank"
+               class="px-6 py-3 bg-primary text-on-primary rounded-full handwritten-font text-xl hover:scale-105 transition">
+                <span class="material-symbols-outlined align-middle mr-2">
+                    visibility
+                </span>
+                View Syllabus
+            </a>
+
+            <!-- Download PDF -->
+            <a href="./../../ashart/syllabus/Diploma/EE_Syllabus_3rd4th5th6th_Semester_compressed.pdf"
+               download
+               class="px-6 py-3 border-2 border-primary text-primary rounded-full handwritten-font text-xl hover:bg-primary hover:text-on-primary transition">
+                <span class="material-symbols-outlined align-middle mr-2">
+                    download
+                </span>
+                Download PDF
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Section 05: Overview -->
+<section class="mt-16 bg-surface-container-low p-8 rounded-lg border-2 border-primary border-dashed relative">
+<div class="absolute -top-4 -left-4 text-4xl transform -rotate-12">📌</div>
+<h2 class="font-headline-md text-primary mb-4 handwritten-font">ABOUT THIS DEPARTMENT</h2>
+<div class="prose max-w-none text-on-surface-variant font-body-md leading-relaxed">
+<p class="mb-4">The Electrical Engineering department at Campus Bound is dedicated to developing skilled professionals in the field of electrical power, electronics, and engineering technology. Our curriculum provides a strong foundation in electrical principles while emphasizing practical, hands-on learning through laboratory experiments, circuit analysis, measurements, and project-based activities.</p>
+<p class="">Students gain knowledge in electrical machines, power systems, electrical circuits, control systems, power generation, and electronic devices, preparing them for diverse careers in the electrical and power engineering industry.</p>
+</div>
+</section>
+<!-- Section 06/07: Skills & Careers -->
+<section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Skills -->
+<div>
+<h2 class="font-headline-md text-primary mb-6 handwritten-font section-title">Skills Acquired</h2>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 border-2 border-primary rounded-full handwritten-font text-xl text-primary bg-surface transform rotate-1">Electrical Circuit Analysis</span>
+<span class="px-4 py-2 border-2 border-primary rounded-full handwritten-font text-xl text-primary bg-surface transform -rotate-2">Power Systems & Generation</span>
+<span class="px-4 py-2 border-2 border-primary rounded-full handwritten-font text-xl text-primary bg-surface transform rotate-2">Electrical Machines & Control</span>
+<span class="px-4 py-2 border-2 border-primary rounded-full handwritten-font text-xl text-primary bg-surface transform -rotate-1">Measurement & Instrumentation</span>
+</div>
+</div>
+<!-- Careers -->
+<div>
+<h2 class="font-headline-md text-primary mb-6 handwritten-font section-title">Career Paths</h2>
+<ul class="space-y-3 font-body-md text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">arrow_right_alt</span>
+                         Electrical Engineer
+                     </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">arrow_right_alt</span>
+                         Power Systems Engineer
+                     </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">arrow_right_alt</span>
+                         Control Engineer
+                     </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">arrow_right_alt</span>
+                         Network Administrator
+                     </li>
+</ul>
+</div>
+</section>
+
+<section class="mt-16">
+<div class="paper-card p-8 wobbly-border bg-surface-container-low border-dashed">
+<h2 class="font-headline-md text-primary mb-6 handwritten-font">DEPARTMENT QUICK INFO</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="font-label-caps text-xs text-on-surface-variant">Course</p>
+<p class="font-bold">Diploma in EE</p>
+</div>
+<div>
+<p class="font-label-caps text-xs text-on-surface-variant">Duration</p>
+<p class="font-bold">3 Years</p>
+</div>
+<div>
+<p class="font-label-caps text-xs text-on-surface-variant">Intake</p>
+<p class="font-bold">60 Students</p>
+</div>
+<div>
+<p class="font-label-caps text-xs text-on-surface-variant">Affiliation</p>
+<p class="font-bold">State Board</p>
+</div>
+</div>
+</div>
+</section><section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="paper-card p-8 text-center wobbly-border">
+<h3 class="font-headline-md text-primary mb-4 handwritten-font">Ready to Join?</h3>
+<p class="mb-6 text-on-surface-variant font-body-md">Start your journey in technology today.</p>
+<a href="https://eiem.ac.in/admissions/" target="_blank"><button class="bg-primary text-on-primary px-6 py-3 handwritten-font text-2xl rounded hover:bg-primary-fixed-variant transition-colors flex items-center justify-center gap-2 mx-auto w-full max-w-xs">READY TO START? 🎓 <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</a>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<!-- <button class="text-primary handwritten-font text-xl flex items-center gap-1 hover:underline mx-auto">
+        Explore the Lab <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+</button> -->
+</div></div>
+<div class="paper-card p-8 text-center wobbly-border-2">
+<h3 class="font-headline-md text-primary mb-4 handwritten-font">Learn More</h3>
+<p class="mb-6 text-on-surface-variant font-body-md">Visit the main university portal for detailed syllabus.</p>
+<a href="https://eiem.ac.in/" target="_blank">
+    <button class="bg-surface text-primary border-2 border-primary px-6 py-3 handwritten-font text-2xl rounded hover:bg-surface-container transition-colors flex items-center justify-center gap-2 mx-auto w-full max-w-xs">
+                    OFFICIAL WEBSITE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</a>
+
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<!-- <button class="text-primary handwritten-font text-xl flex items-center gap-1 hover:underline mx-auto">
+        Explore the Lab <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+</button> -->
+</div></div>
+</section>
+</main>
+<!-- Footer -->
+ <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ==========================================
+    // SEMESTER SUBJECT DATA
+    // ==========================================
+
+    const semesterData = {
+
+        "SEM 1": [
+            "Mathematics-I ",
+            "Communication Skills in English & Lab ",
+            "Applied Physics-I & Lab ",
+            "Applied Chemistry & Lab ",
+            "Engineering Graphics ",
+            "Engineering Workshop Practice ",
+            "Sports and Yoga "
+        ],
+
+        "SEM 2": [
+            "Mathematics-II",
+            "Applied Physics-II & Lab",
+            "Fundamentals of Electrical and Electronics Engineering & Lab",
+            "Introduction to IT Systems & Lab",
+            "Engineering Mechanics & Lab",
+            "Indian Constitution "
+        ],
+
+        "SEM 3": [
+            "Introduction to Electric Generation Systems & Lab",
+            "Electrical Circuits & Lab",
+            "Electrical and Electronic Measurement & Lab",
+            "DC Machines and Transformers & Lab",
+            "Analog and Digital electronics & Lab",
+            "Internship-I"
+        ],
+
+        "SEM 4": [
+            "Power Electronics Converters and Application & Lab",
+            "Electric Power Transmission and Distribution & Lab",
+            "Induction, Synchronous and Special Electrical Machines & Lab",
+            "Renewable Energy Power Plants & Lab",
+            "Switchgear and protection & Lab",
+            "Minor Project"
+        ],
+
+        "SEM 5": [
+            "Microcontroller and its Applications & Lab",
+            "Building Electrification & Lab",
+            "IndustrialAutomation & Control & Lab",
+            "Industrial Drives & Lab",
+            "Illumination Practices & Lab",
+            "Electric Traction & Lab",
+            "Solar Power Technologies & Lab",
+            "Internship II ",
+            "Major Project"
+        ],
+
+        "SEM 6": [
+            "Energy conservation and Audit & Lab",
+            "Industrial Instrumentation and Condition Monitoring lab ",
+            "Electrical Testing and Commissioning & Lab",
+            "Electric vehicles & Lab",
+            "Entrepreneurship and Start-ups ",
+            "Engineering Economics and Project Management ",
+            "Major Project "
+        ]
+
+    };
+
+
+    // ==========================================
+    // FACULTY DATA
+    // ==========================================
+
+    const facultyData = {
+
+        "SEM 1": [
+            {
+                name: "Mr. Rajdeep Das",
+                role: "HOD & Lecturer",
+                image: "faculty/anil.jpg"
+            },
+            {
+                name: "Mr. Subrata Das",
+                role: "Lecturer",
+                image: "faculty/priya.jpg"
+            },
+            {
+                name: "Mr. Sujit Pathak",
+                role: "Lecturer",
+                image: "faculty/rahul.jpg"
+            },
+            {
+                name: "Ms. Priyanka Tiwari",
+                role: "Lecturer",
+                image: "faculty/subrata.jpg"
+            },
+            {
+                name: "Ms. Oindrila Sengupta",
+                role: "Lecturer",
+                image: "faculty/anil.jpg"
+            }
+        ],
+
+        "SEM 2": [
+            {
+                name: "Mr. Rajdeep Das",
+                role: "HOD & Lecturer",
+                image: "faculty/anil.jpg"
+            },
+            {
+                name: "Mr. Subrata Das",
+                role: "Lecturer",
+                image: "faculty/priya.jpg"
+            },
+            {
+                name: "Mr. Sujit Pathak",
+                role: "Lecturer",
+                image: "faculty/rahul.jpg"
+            },
+            {
+                name: "Ms. Priyanka Tiwari",
+                role: "Lecturer",
+                image: "faculty/subrata.jpg"
+            },
+            {
+                name: "Ms. Oindrila Sengupta",
+                role: "Lecturer",
+                image: "faculty/anil.jpg"
+            }
+        ],
+
+        "SEM 3": [
+            {
+                name: "Ms. Moumita Mallick Jana",
+                role: "HOD & Lecturer",
+                image: "faculty/rajesh.jpg"
+            },
+            {
+                name: "Dr. Swapan Santra",
+                role: "Lecturer",
+                image: "faculty/sujit.jpg"
+            },
+            {
+                name: "Mr. Suman Moitra",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Pradipta Acharya",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Subhasish Mukhopadhyay",
+                role:"Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Sushovan Goswami",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name:"Mr. Tanmoy Chakraborty",
+                role:"Lecturer",
+                image:"faculty/moumita.jpg"
+            }
+        ],
+
+        "SEM 4": [
+            {
+                name: "Ms. Moumita Mallick Jana",
+                role: "HOD & Lecturer",
+                image: "faculty/rajesh.jpg"
+            },
+            {
+                name: "Dr. Swapan Santra",
+                role: "Lecturer",
+                image: "faculty/sujit.jpg"
+            },
+            {
+                name: "Mr. Suman Moitra",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Pradipta Acharya",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Subhasish Mukhopadhyay",
+                role:"Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Sushovan Goswami",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name:"Mr. Tanmoy Chakraborty",
+                role:"Lecturer",
+                image:"faculty/moumita.jpg"
+            }
+        ],
+
+        "SEM 5": [
+           {
+                name: "Ms. Moumita Mallick Jana",
+                role: "HOD & Lecturer",
+                image: "faculty/rajesh.jpg"
+            },
+            {
+                name: "Dr. Swapan Santra",
+                role: "Lecturer",
+                image: "faculty/sujit.jpg"
+            },
+            {
+                name: "Mr. Suman Moitra",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Pradipta Acharya",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Subhasish Mukhopadhyay",
+                role:"Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Sushovan Goswami",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name:"Mr. Tanmoy Chakraborty",
+                role:"Lecturer",
+                image:"faculty/moumita.jpg"
+            }
+        ],
+
+        "SEM 6": [
+            {
+                name: "Ms. Moumita Mallick Jana",
+                role: "HOD & Lecturer",
+                image: "faculty/rajesh.jpg"
+            },
+            {
+                name: "Dr. Swapan Santra",
+                role: "Lecturer",
+                image: "faculty/sujit.jpg"
+            },
+            {
+                name: "Mr. Suman Moitra",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Pradipta Acharya",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Subhasish Mukhopadhyay",
+                role:"Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name: "Mr. Sushovan Goswami",
+                role: "Lecturer",
+                image: "faculty/moumita.jpg"
+            },
+            {
+                name:"Mr. Tanmoy Chakraborty",
+                role:"Lecturer",
+                image:"faculty/moumita.jpg"
+            }
+        ],
+
+    };
+
+
+    // ==========================================
+    // FIND SEMESTER BUTTONS
+    // ==========================================
+
+    const semesterButtons = [...document.querySelectorAll("button")]
+        .filter(button => semesterData[button.textContent.trim()]);
+
+
+    // ==========================================
+    // FIND SUBJECT SECTION
+    // ==========================================
+
+    const semesterSection = [...document.querySelectorAll("section")]
+        .find(section =>
+            section.querySelector("button") &&
+            section.querySelector("button").textContent.trim() === "SEM 1"
+        );
+
+
+    if (!semesterSection) {
+        console.error("Semester section not found!");
+        return;
+    }
+
+
+    // ==========================================
+    // CREATE SUBJECT CONTAINER
+    // ==========================================
+
+    let subjectContainer = semesterSection.querySelector(
+        "#subjectContainer"
+    );
+
+    if (!subjectContainer) {
+
+        subjectContainer = document.createElement("div");
+
+        subjectContainer.id = "subjectContainer";
+
+        subjectContainer.className =
+            "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6";
+
+        semesterSection.appendChild(subjectContainer);
+    }
+
+
+    // ==========================================
+    // FIND FACULTY CONTAINER
+    // ==========================================
+
+    const facultySection = [...document.querySelectorAll("section")]
+        .find(section => {
+
+            const heading = section.querySelector("h2");
+
+            return heading &&
+                heading.textContent.trim() === "02. Faculty";
+
+        });
+
+
+    if (!facultySection) {
+        console.error("Faculty section not found!");
+        return;
+    }
+
+
+    // ==========================================
+    // GET / CREATE FACULTY CONTAINER
+    // ==========================================
+
+    let facultyContainer =
+        facultySection.querySelector("#facultyContainer");
+
+
+    if (!facultyContainer) {
+
+        facultyContainer =
+            facultySection.querySelector(
+                ".grid.grid-cols-1.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4"
+            );
+
+    }
+
+
+    if (!facultyContainer) {
+
+        console.error("Faculty container not found!");
+
+        return;
+    }
+
+
+    // ==========================================
+    // SHOW SUBJECTS
+    // ==========================================
+
+    function showSemester(semester) {
+
+        const subjects = semesterData[semester];
+
+        if (!subjects) return;
+
+
+        subjectContainer.innerHTML = `
+
+            <div class="
+                paper-card
+                p-6
+                wobbly-border-2
+                bg-surface-container-lowest
+                md:col-span-2
+                lg:col-span-3
+            ">
+
+                <h4 class="
+                    font-bold
+                    text-primary
+                    mb-6
+                    border-b
+                    border-primary/20
+                    pb-2
+                    handwritten-font
+                    text-2xl
+                ">
+                    ${semester}
+                </h4>
+
+
+                <ul class="
+                    grid
+                    grid-cols-1
+                    md:grid-cols-2
+                    gap-4
+                    font-annotation
+                ">
+
+                    ${subjects.map((subject, index) => `
+
+                        <li class="
+                            flex
+                            items-center
+                            gap-3
+                            p-3
+                            border
+                            border-outline-variant
+                            rounded-lg
+                            bg-surface
+                        ">
+
+                            <span class="
+                                material-symbols-outlined
+                                text-secondary
+                            ">
+                                check_circle
+                            </span>
+
+                            <span>
+                                ${String(index + 1).padStart(2, "0")}.
+                                ${subject}
+                            </span>
+
+                        </li>
+
+                    `).join("")}
+
+                </ul>
+
+            </div>
+
+        `;
+    }
+
+
+    // ==========================================
+    // SHOW FACULTY
+    // ==========================================
+
+    function showFaculty(semester) {
+
+        const faculty = facultyData[semester];
+
+        if (!faculty) return;
+
+
+        const rotations = [
+            "rotate-2",
+            "-rotate-1",
+            "rotate-1",
+            "-rotate-2"
+        ];
+
+
+        facultyContainer.innerHTML = faculty.map(
+            (teacher, index) => {
+
+                return `
+
+                    <div class="
+                        polaroid
+                        transform
+                        ${rotations[index % rotations.length]}
+                        mx-auto
+                        w-full
+                        max-w-xs
+                    ">
+
+                        <img
+                            src="${teacher.image}"
+                            alt="${teacher.name}"
+                            class="
+                                w-full
+                                h-48
+                                object-cover
+                                mb-2
+                            "
+                            onerror="
+                                this.style.display='none';
+                                this.nextElementSibling
+                                    .previousElementSibling
+                                    ?.remove();
+                            "
+                        >
+
+                        <h4 class="
+                            text-2xl
+                            text-on-surface
+                            text-center
+                            handwritten-font
+                        ">
+                            ${teacher.name}
+                        </h4>
+
+                        <p class="
+                            text-xs
+                            text-center
+                            text-on-surface-variant
+                            uppercase
+                            font-label-caps
+                        ">
+                            ${teacher.role}
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+    }
+
+
+    // ==========================================
+    // ACTIVE BUTTON
+    // ==========================================
+
+    function setActiveButton(activeButton) {
+
+        semesterButtons.forEach(button => {
+
+            button.classList.remove(
+                "bg-primary",
+                "text-on-primary"
+            );
+
+            button.classList.add(
+                "text-on-surface-variant"
+            );
+
+        });
+
+
+        activeButton.classList.remove(
+            "text-on-surface-variant"
+        );
+
+        activeButton.classList.add(
+            "bg-primary",
+            "text-on-primary"
+        );
+
+    }
+
+
+    // ==========================================
+    // BUTTON CLICK
+    // ==========================================
+
+    semesterButtons.forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            const semester =
+                this.textContent.trim();
+
+
+            console.log(
+                "Selected Semester:",
+                semester
+            );
+
+
+            // Change Subjects
+            showSemester(semester);
+
+
+            // Change Faculty
+            showFaculty(semester);
+
+
+            // Active Button
+            setActiveButton(this);
+
+        });
+
+    });
+
+
+    // ==========================================
+    // DEFAULT = SEM 1
+    // ==========================================
+
+    showSemester("SEM 1");
+
+    showFaculty("SEM 1");
+
+    if (semesterButtons.length > 0) {
+
+        setActiveButton(
+            semesterButtons[0]
+        );
+
+    }
+
+});
+
+
+
+</script>
+
+</body>
+</html>

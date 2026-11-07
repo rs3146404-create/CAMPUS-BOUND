@@ -1,0 +1,1067 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Memories Gallery - Campus Bound</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <link rel="icon" type="image/png" href="./../../ashart/icon/icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Epilogue:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#fcf9f8",
+            "surface-container": "#f0eded",
+            "surface-container-low": "#f6f3f2",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#eae7e7",
+            "surface-container-highest": "#e5e2e1",
+            "primary": "#002652",
+            "primary-container": "#003b7a",
+            "secondary": "#006e26",
+            "secondary-container": "#8cf794",
+            "on-surface": "#1b1c1c",
+            "on-surface-variant": "#434750",
+            "outline": "#737781"
+          },
+          spacing: {
+            "gutter": "24px",
+            "margin-page": "40px"
+          },
+          fontFamily: {
+            "body-md": ["Inter", "sans-serif"],
+            "headline-md": ["Epilogue", "sans-serif"],
+            "label-caps": ["Inter", "sans-serif"],
+            "annotation": ["Be Vietnam Pro", "sans-serif"],
+            "handwritten": ["Caveat", "cursive"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .notebook-bg {
+      background-color: #fcf9f8;
+      background-image: linear-gradient(#b8d2ff 1px, transparent 1px);
+      background-size: 100% 32px;
+      background-position: 0 40px;
+    }
+
+    .notebook-margin {
+      border-left: 2px solid #e11d48;
+      box-shadow: -4px 0 0 rgba(225, 29, 72, 0.15);
+    }
+
+    .sketch-box {
+      border: 2px solid #002652;
+      border-radius: 6px 4px 7px 5px / 5px 6px 4px 7px;
+    }
+
+    .sketch-pill {
+      border: 1.5px solid #002652;
+      border-radius: 9999px;
+    }
+
+    .marker-box {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+    }
+
+    .marker-box::before {
+      content: "";
+      position: absolute;
+      inset: -3px -12px -5px -8px;
+      background: #8cf794;
+      opacity: 0.55;
+      z-index: -1;
+      border-radius: 8px 4px 12px 5px;
+      transform: rotate(-0.75deg);
+    }
+
+    .washi-tape-top,
+    .washi-tape-mint {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      width: 90px;
+      height: 24px;
+      z-index: 20;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+      border-left: 2px dashed rgba(0,0,0,.1);
+      border-right: 2px dashed rgba(0,0,0,.1);
+    }
+
+    .washi-tape-top {
+      background: rgba(254,240,138,.75);
+      transform: translateX(-50%) rotate(-1.5deg);
+    }
+
+    .washi-tape-mint {
+      width: 86px;
+      background: rgba(140,247,148,.65);
+      transform: translateX(-50%) rotate(2deg);
+    }
+
+    .washi-tape-corner-tr,
+    .washi-tape-corner-tl {
+      position: absolute;
+      top: -10px;
+      width: 60px;
+      height: 20px;
+      background: rgba(254,205,211,.75);
+      z-index: 20;
+    }
+
+    .washi-tape-corner-tr {
+      right: -10px;
+      transform: rotate(45deg);
+    }
+
+    .washi-tape-corner-tl {
+      left: -10px;
+      background: rgba(186,230,253,.75);
+      transform: rotate(-45deg);
+    }
+
+    .push-pin {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ef4444, #991b1b);
+      box-shadow: 0 3px 6px rgba(0,0,0,.35);
+      z-index: 20;
+    }
+
+    .scrapbook-card {
+      position: relative;
+      transition: transform .3s ease, box-shadow .3s ease;
+      transform-origin: center center;
+    }
+
+    .scrapbook-card:hover {
+      transform: translateY(-6px) scale(1.02) rotate(0deg) !important;
+      box-shadow: 0 16px 30px -10px rgba(0,38,82,.25);
+      z-index: 30;
+    }
+
+    .gallery-photo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .scrapbook-card:hover .gallery-photo {
+      transform: scale(1.06);
+    }
+
+    .category-btn {
+      flex-shrink: 0;
+    }
+
+    .scrollbar-none {
+      scrollbar-width: none;
+    }
+
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Motion shared-element clone */
+    .shared-photo-clone {
+      position: fixed;
+      display: block;
+      margin: 0;
+      padding: 0;
+      z-index: 99999;
+      pointer-events: none;
+      object-fit: fill;
+      transform: none;
+      transform-origin: top left;
+      will-change: left, top, width, height;
+      box-shadow: 0 15px 45px rgba(0,0,0,.3);
+    }
+
+    #lightbox-modal {
+      transition: opacity .3s ease;
+    }
+
+    #lightbox-card {
+      transition: transform .3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .notebook-margin {
+        box-shadow: none;
+      }
+
+      .notebook-bg {
+        background-size: 100% 28px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scrapbook-card,
+      .gallery-photo,
+      #lightbox-modal,
+      #lightbox-card {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md notebook-bg overflow-x-hidden min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white/95 backdrop-blur sticky top-0 border-b-2 border-primary/20 shadow-sm z-50">
+    <div class="flex items-center justify-between px-4 md:px-margin-page py-4">
+      <a class="flex items-center gap-2" href="./../home page/home.html">
+        <img src="./../../ashart/icon/icon.png" alt="Campus Bound logo" class="w-8 h-8 object-contain">
+        <span class="font-handwritten text-3xl text-primary font-bold">CAMPUS BOUND</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="w-full max-w-7xl mx-auto pl-4 md:pl-10 pr-4 md:pr-8 py-8 notebook-margin flex-1">
+
+    <!-- Gallery heading -->
+    <section class="pt-6 pb-6">
+      <h1 class="font-handwritten text-5xl md:text-7xl lg:text-8xl font-bold text-primary marker-box">
+        College Memories
+      </h1>
+
+      <p class="mt-4 max-w-2xl text-base md:text-lg text-on-surface-variant">
+        Explore the campus, classrooms, laboratories, events and memorable moments of our college.
+      </p>
+    </section>
+
+    <!-- Category filters -->
+    <section class="mt-6 mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="font-annotation text-xs font-bold uppercase tracking-widest text-primary">
+          Filter By Category
+        </span>
+        <span class="material-symbols-outlined text-sm text-secondary">label</span>
+      </div>
+
+      <div id="filter-container" class="flex items-center gap-2.5 overflow-x-auto pb-3 pt-1 scrollbar-none"></div>
+    </section>
+
+    <!-- Count -->
+    <div class="flex items-center justify-between border-b border-primary/20 pb-2 mb-8">
+      <div class="font-handwritten text-xl font-bold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary">photo_camera</span>
+        <span id="gallery-count-label">Showing all moments</span>
+      </div>
+
+      <div class="font-annotation text-xs text-outline hidden sm:block">
+        Click any photo to enlarge &amp; read notes ↗
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <section id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-7"></section>
+
+    <!-- Virtual tour -->
+    <section class="mt-20 pt-10 border-t-2 border-dashed border-primary/30 text-center">
+      <div class="max-w-2xl mx-auto bg-white sketch-box p-6 md:p-8 shadow-md relative">
+        <div class="washi-tape-top"></div>
+
+        <div class="text-5xl mb-3">📸</div>
+
+        <h2 class="font-handwritten text-4xl md:text-5xl font-bold text-primary mb-4">
+          Virtual Campus Tour
+        </h2>
+
+        <a href="./video.html" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 sketch-pill bg-secondary text-white px-5 py-2.5 text-xs font-bold tracking-wider hover:bg-green-800 transition">
+          <span>Take the Virtual Campus Tour</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox-modal"
+       class="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md hidden opacity-0 items-center justify-center p-3 sm:p-6"
+       role="dialog" aria-modal="true" aria-label="Photo viewer">
+
+    <button id="lightbox-close" aria-label="Close photo"
+      class="absolute top-4 right-4 text-white bg-white/20 hover:bg-white/30 rounded-full w-10 h-10 flex items-center justify-center z-20">
+      <span class="material-symbols-outlined text-2xl">close</span>
+    </button>
+
+    <button id="lightbox-prev" aria-label="Previous photo"
+      class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white bg-white/20 hover:bg-white/30 rounded-full w-11 h-11 flex items-center justify-center z-20">
+      <span class="material-symbols-outlined text-2xl">arrow_back</span>
+    </button>
+
+    <button id="lightbox-next" aria-label="Next photo"
+      class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white bg-white/20 hover:bg-white/30 rounded-full w-11 h-11 flex items-center justify-center z-20">
+      <span class="material-symbols-outlined text-2xl">arrow_forward</span>
+    </button>
+
+    <div id="lightbox-card"
+      class="bg-white max-w-4xl w-full max-h-[92vh] rounded-lg shadow-2xl overflow-hidden flex flex-col scale-95 border-4 border-white">
+
+      <div class="relative bg-black flex items-center justify-center overflow-hidden">
+        <img id="lightbox-image" src="" alt=""
+          class="max-h-[64vh] w-auto max-w-full object-contain select-none">
+
+        <div id="lightbox-category-badge"
+          class="absolute top-3 left-3 bg-secondary text-white text-[11px] px-3 py-1 rounded-full shadow font-semibold">
+        </div>
+      </div>
+
+      <div class="p-4 sm:p-6 bg-[#fffefc] border-t border-dashed border-gray-300 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="flex-1 min-w-0">
+          <h3 id="lightbox-title" class="font-headline-md text-xl md:text-2xl font-bold text-primary"></h3>
+
+          <p id="lightbox-caption" class="font-handwritten text-xl md:text-2xl text-gray-700 mt-1"></p>
+
+          <div class="flex flex-wrap items-center gap-3 mt-2">
+            <span id="lightbox-date" class="font-annotation text-xs text-outline"></span>
+            <span class="text-gray-300">•</span>
+            <span id="lightbox-location" class="font-annotation text-xs text-secondary font-semibold"></span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 self-end md:self-center">
+          <button id="lightbox-share" aria-label="Share this photo"
+            class="rounded-full bg-surface-container px-3 py-2 text-primary hover:bg-secondary hover:text-white transition">
+            <span class="material-symbols-outlined">share</span>
+          </button>
+
+          <span id="lightbox-counter" class="font-annotation text-xs font-bold text-primary bg-surface-container px-3 py-1.5 rounded-full"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-surface-container-highest w-full border-t-4 border-primary shadow-inner mt-16">
+    <div class="flex justify-between items-center px-4 md:px-margin-page py-6 w-full gap-4 max-w-7xl mx-auto">
+      <a class="flex items-center gap-2" href="./../home page/home.html">
+        <img src="./../../ashart/icon/icon.png" alt="Campus Bound logo" class="w-8 h-8 object-contain">
+        <span class="font-handwritten text-2xl text-primary font-bold">CAMPUS BOUND</span>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // Load Motion without requiring the whole page to be a module.
+    let motionAnimate = null;
+    let isPhotoAnimating = false;
+
+    import("https://cdn.jsdelivr.net/npm/motion@12.23.12/+esm")
+      .then(({ animate }) => {
+        motionAnimate = animate;
+        console.log("Motion loaded successfully!");
+      })
+      .catch(error => {
+        console.error("Could not load Motion:", error);
+      });
+
+    // Gallery data
+    const galleryItems = [
+      {
+        id: 1,
+        title: "Our Beautiful Campus",
+        category: "Campus",
+        caption: "Autumn afternoon at the central quad and campus buildings.",
+        date: "Nov 12, 2024",
+        location: "Main Quadrangle",
+        image: "../pic/Untitled.png",
+        tapeType: "washi-tape-top",
+        rotation: "rotate-[1deg]"
+      },
+      {
+        id: 2,
+        title: "Library Study Sesh",
+        category: "Sports",
+        caption: "Peaceful afternoon discussions, warm sun and serious reading.",
+        date: "Oct 24, 2024",
+        location: "Central Academic Library",
+        image: "../pic/Sports1.jpg",
+        tapeType: "washi-tape-mint",
+        rotation: "rotate-[-1.5deg]"
+      },
+      {
+        id: 3,
+        title: "Annual Cultural Fest",
+        category: "Cultural Programs",
+        caption: "Memorable moments from our cultural celebration.",
+        date: "Dec 04, 2024",
+        location: "Campus Auditorium",
+        image: "../pic/cultural1.jpg",
+        tapeType: "washi-tape-corner-tr",
+        rotation: "rotate-[1.2deg]"
+      },
+      {
+        id: 4,
+        title: "Annual Sports Day",
+        category: "Sports",
+        caption: "A day filled with energy, teamwork and sportsmanship.",
+        date: "Nov 28, 2024",
+        location: "College Sports Ground",
+        image: "../pic/Sports2.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1deg]"
+      },
+      {
+        id: 5,
+        title: "CST Computer & Innovation Lab",
+        category: "Laboratories",
+        caption: "Students exploring programming, technology and practical projects.",
+        date: "Oct 18, 2024",
+        location: "Computer Laboratory",
+        image: "../pic/g5.jpg",
+        tapeType: "washi-tape-top",
+        rotation: "rotate-[1.5deg]"
+      },
+      {
+        id: 6,
+        title: "Faculty Mentorship Forum",
+        category: "Teachers",
+        caption: "Teachers guiding students through learning and projects.",
+        date: "Sep 15, 2024",
+        location: "Seminar Hall",
+        image: "../pic/g6.jpg",
+        tapeType: "washi-tape-corner-tl",
+        rotation: "rotate-[-1.2deg]"
+      },
+      {
+        id: 7,
+        title: "Tech Expo & Project Showcase",
+        category: "College Events",
+        caption: "Students showcasing their projects and creative ideas.",
+        date: "Nov 02, 2024",
+        location: "Exhibition Area",
+        image: "../pic/event2.jpg",
+        tapeType: "washi-tape-mint",
+        rotation: "rotate-[0.8deg]"
+      },
+      {
+        id: 8,
+        title: "Tech Expo & Project Showcase",
+        category: "College Events",
+        caption: "A closer look at student projects and innovation.",
+        date: "Nov 02, 2024",
+        location: "Exhibition Area",
+        image: "../pic/event3.jpg",
+        tapeType: "washi-tape-mint",
+        rotation: "rotate-[0.8deg]"
+      },
+      {
+        id: 9,
+        title: "Precision Manufacturing Visit",
+        category: "Sports",
+        caption: "Students learning about manufacturing and industrial technology.",
+        date: "Nov 20, 2024",
+        location: "Industrial Training Visit",
+        image: "../pic/Sports3.jpg",
+        tapeType: "washi-tape-top",
+        rotation: "rotate-[1.2deg]"
+      },
+      {
+        id: 10,
+        title: "Science Laboratory",
+        category: "Laboratories",
+        caption: "Hands-on learning and practical laboratory activities.",
+        date: "Nov 05, 2024",
+        location: "Science Laboratory",
+        image: "../pic/g9.jpg",
+        tapeType: "washi-tape-corner-tr",
+        rotation: "rotate-[-0.8deg]"
+      },
+      {
+        id: 11,
+        title: "Inter-College Cricket Clash",
+        category: "Sports",
+        caption: "An exciting day of cricket, teamwork and competition.",
+        date: "Dec 10, 2024",
+        location: "College Cricket Ground",
+        image: "../pic/Sports4.jpg",
+        tapeType: "washi-tape-mint",
+        rotation: "rotate-[1deg]"
+      },
+      {
+        id: 12,
+        title: "Interactive Smart Classroom",
+        category: "Classrooms",
+        caption: "Learning, discussion and classroom activities.",
+        date: "Oct 12, 2024",
+        location: "Classroom",
+        image: "../pic/g11.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 13,
+        title: "Campus Classroom",
+        category: "Classrooms",
+        caption: "Another memorable moment from our classrooms.",
+        date: "Oct 12, 2024",
+        location: "Classroom",
+        image: "../pic/g13.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 14,
+        title: "Campus Memories",
+        category: "Sports",
+        caption: "A special memory from college life.",
+        date: "Oct 12, 2024",
+        location: "College Campus",
+        image: "../pic/Sports5.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 15,
+        title: "Classroom Moments",
+        category: "Classrooms",
+        caption: "Learning together and building new skills.",
+        date: "Oct 12, 2024",
+        location: "Classroom",
+        image: "../pic/g15.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 16,
+        title: "College Life",
+        category: "College Events",
+        caption: "One more moment worth keeping in our college scrapbook.",
+        date: "Oct 12, 2024",
+        location: "College Campus",
+        image: "../pic/event3.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 17,
+        title: "Campus Activities",
+        category: "College Events",
+        caption: "Memories made with classmates and friends.",
+        date: "Oct 12, 2024",
+        location: "College Campus",
+        image: "../pic/event4.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 18,
+        title: "College Moments",
+        category: "Classrooms",
+        caption: "A snapshot of everyday college life.",
+        date: "Oct 12, 2024",
+        location: "College Campus",
+        image: "https://maps.app.goo.gl/4rZ4AoYwhbyiTvyZ6",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 19,
+        title: "Our Memories",
+        category: "Classrooms",
+        caption: "Every picture tells a story from our college journey.",
+        date: "Oct 12, 2024",
+        location: "College Campus",
+        image: "../pic/g19.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      },
+      {
+        id: 20,
+        title: "Our Memories",
+        category: "Classrooms",
+        caption: "Every picture tells a story from our college journey.",
+        date: "Oct 12, 2024",
+        location: "College Campus",
+        image: "../pic/g20.jpg",
+        tapeType: "push-pin",
+        rotation: "rotate-[-1.3deg]"
+      }
+    ];
+
+    const categories = [
+      "All",
+      "Campus",
+      "Laboratories",
+      "Classrooms",
+      "College Events",
+      "Teachers",
+      "Cultural Programs",
+      "Sports",
+    ];
+
+    let activeCategory = "All";
+    let filteredItems = [...galleryItems];
+    let currentLightboxIndex = 0;
+
+    // DOM elements
+    const filterContainer = document.getElementById("filter-container");
+    const galleryGrid = document.getElementById("gallery-grid");
+    const countLabel = document.getElementById("gallery-count-label");
+
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const lightboxCard = document.getElementById("lightbox-card");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const lightboxTitle = document.getElementById("lightbox-title");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const lightboxDate = document.getElementById("lightbox-date");
+    const lightboxLocation = document.getElementById("lightbox-location");
+    const lightboxCategoryBadge = document.getElementById("lightbox-category-badge");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+
+    // Build category buttons
+    function renderFilters() {
+      filterContainer.innerHTML = categories.map(category => {
+        const isActive = category === activeCategory;
+
+        return `
+          <button
+            type="button"
+            data-category="${category}"
+            class="category-btn whitespace-nowrap px-4 py-1.5 rounded-full text-xs uppercase tracking-wider sketch-pill transition-all duration-200
+            ${isActive
+              ? "bg-secondary text-white shadow-sm font-bold scale-105"
+              : "bg-surface-container-low text-primary hover:bg-surface-container hover:text-secondary"}">
+            ${isActive ? "★ " : ""}${category}
+          </button>
+        `;
+      }).join("");
+
+      filterContainer.querySelectorAll(".category-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const category = button.dataset.category;
+
+          if (category === activeCategory) return;
+
+          activeCategory = category;
+          applyFilter();
+        });
+      });
+    }
+
+    // Render photo cards
+    function renderGallery() {
+      if (filteredItems.length === 0) {
+        galleryGrid.innerHTML = `
+          <div class="col-span-full py-16 text-center">
+            <p class="font-handwritten text-3xl text-outline">
+              No photos pinned yet in this category!
+            </p>
+          </div>
+        `;
+
+        countLabel.textContent = "0 memories found";
+        return;
+      }
+
+      countLabel.textContent =
+        `Showing ${filteredItems.length} ${
+          activeCategory === "All" ? "memories" : activeCategory + " photos"
+        }`;
+
+      galleryGrid.innerHTML = filteredItems.map((item, index) => {
+        let tapeHTML = "";
+
+        if (item.tapeType === "push-pin") {
+          tapeHTML = '<div class="push-pin"></div>';
+        } else if (item.tapeType) {
+          tapeHTML = `<div class="${item.tapeType}"></div>`;
+        }
+
+        return `
+          <article
+            onclick="openLightbox(${index}, event)"
+            class="scrapbook-card group relative bg-white p-3 pb-5 rounded-sm border-2 border-primary/20 shadow-md cursor-pointer ${item.rotation}">
+
+            ${tapeHTML}
+
+            <div class="relative overflow-hidden aspect-[4/3] bg-surface-container rounded-sm border border-gray-200">
+              <img
+                src="${item.image}"
+                alt="${item.title}"
+                loading="lazy"
+                data-photo-id="${item.id}"
+                class="gallery-photo"
+              >
+
+              <button
+                type="button"
+                onclick="event.stopPropagation(); sharePhoto(${item.id})"
+                class="absolute top-2 right-2 z-10 rounded-full bg-white/95 px-3 py-2 text-primary shadow-md transition-all hover:bg-secondary hover:text-white hover:scale-110"
+                aria-label="Share ${item.title}">
+                <span class="material-symbols-outlined">share</span>
+              </button>
+
+              <div class="absolute bottom-2 left-2">
+                <span class="bg-primary/80 text-white text-[10px] px-2.5 py-0.5 rounded-full font-semibold">
+                  ${item.category}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-3.5 px-1">
+              <h3 class="font-headline-md text-base font-bold text-primary group-hover:text-secondary">
+                ${item.title}
+              </h3>
+
+              <p class="font-handwritten text-xl text-primary/80 leading-snug mt-0.5">
+                "${item.caption}"
+              </p>
+
+              <div class="mt-2.5 pt-2 border-t border-dashed border-gray-200 flex items-center justify-between text-[11px] font-annotation text-outline">
+                <span>📅 ${item.date}</span>
+                <span class="text-secondary font-bold flex items-center gap-1">
+                  View
+                  <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                </span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function applyFilter() {
+      filteredItems = activeCategory === "All"
+        ? [...galleryItems]
+        : galleryItems.filter(item => item.category === activeCategory);
+
+      renderFilters();
+      renderGallery();
+    }
+
+    // Wait for an image to finish loading.
+    function waitForImage(image) {
+      if (image.complete) return Promise.resolve();
+
+      return new Promise(resolve => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    }
+
+    function waitForFrame() {
+      return new Promise(resolve => requestAnimationFrame(resolve));
+    }
+
+    // Create a temporary clone to animate between the two image positions.
+    function createPhotoClone(sourceImage) {
+      const rect = sourceImage.getBoundingClientRect();
+      const clone = document.createElement("img");
+
+      clone.src = sourceImage.currentSrc || sourceImage.src;
+      clone.alt = "";
+      clone.className = "shared-photo-clone";
+
+      Object.assign(clone.style, {
+        left: `${rect.left}px`,
+        top: `${rect.top}px`,
+        width: `${rect.width}px`,
+        height: `${rect.height}px`,
+        borderRadius: "6px"
+      });
+
+      document.body.appendChild(clone);
+
+      return { clone, rect };
+    }
+
+    // Animate the clone with Motion.
+    async function animateSharedPhoto(clone, fromRect, toRect) {
+      if (!motionAnimate) return;
+
+      await motionAnimate(
+        clone,
+        {
+          left: [`${fromRect.left}px`, `${toRect.left}px`],
+          top: [`${fromRect.top}px`, `${toRect.top}px`],
+          width: [`${fromRect.width}px`, `${toRect.width}px`],
+          height: [`${fromRect.height}px`, `${toRect.height}px`],
+          borderRadius: ["6px", "0px"]
+        },
+        {
+          duration: 0.65,
+          ease: [0.22, 1, 0.36, 1]
+        }
+      );
+    }
+
+    // Fill the lightbox with the selected photo.
+    function updateLightboxContent() {
+      const item = filteredItems[currentLightboxIndex];
+      if (!item) return;
+
+      lightboxImage.src = item.image;
+      lightboxImage.alt = item.title;
+      lightboxTitle.textContent = item.title;
+      lightboxCaption.textContent = `"${item.caption}"`;
+      lightboxDate.textContent = `Recorded: ${item.date}`;
+      lightboxLocation.textContent = `📍 ${item.location}`;
+      lightboxCategoryBadge.textContent = item.category;
+      lightboxCounter.textContent =
+        `Photo ${currentLightboxIndex + 1} of ${filteredItems.length}`;
+    }
+
+    // Open: gallery card -> fullscreen lightbox.
+    async function openLightbox(index, event) {
+      if (isPhotoAnimating) return;
+
+      const item = filteredItems[index];
+      if (!item) return;
+
+      currentLightboxIndex = index;
+
+      const sourceImage = event?.currentTarget?.querySelector(
+        `[data-photo-id="${item.id}"]`
+      );
+
+      // Fallback if Motion has not loaded yet.
+      if (!motionAnimate || !sourceImage) {
+        updateLightboxContent();
+
+        lightboxModal.classList.remove("hidden", "opacity-0");
+        lightboxModal.classList.add("flex");
+        lightboxCard.classList.remove("scale-95");
+        lightboxCard.classList.add("scale-100");
+        document.body.style.overflow = "hidden";
+        return;
+      }
+
+      isPhotoAnimating = true;
+      let clone;
+
+      try {
+        await waitForImage(sourceImage);
+
+        const { clone: movingImage, rect: sourceRect } =
+          createPhotoClone(sourceImage);
+
+        clone = movingImage;
+
+        updateLightboxContent();
+
+        lightboxImage.style.visibility = "hidden";
+        lightboxImage.style.opacity = "0";
+
+        lightboxModal.classList.remove("hidden", "opacity-0");
+        lightboxModal.classList.add("flex");
+        lightboxCard.classList.remove("scale-95");
+        lightboxCard.classList.add("scale-100");
+
+        document.body.style.overflow = "hidden";
+
+        await waitForImage(lightboxImage);
+        await waitForFrame();
+        await waitForFrame();
+
+        const targetRect = lightboxImage.getBoundingClientRect();
+
+        if (!targetRect.width || !targetRect.height) {
+          throw new Error("The lightbox image has no visible dimensions.");
+        }
+
+        sourceImage.style.visibility = "hidden";
+
+        await animateSharedPhoto(clone, sourceRect, targetRect);
+      } catch (error) {
+        console.error("Photo opening animation error:", error);
+      } finally {
+        clone?.remove();
+
+        if (sourceImage) {
+          sourceImage.style.visibility = "";
+        }
+
+        lightboxImage.style.visibility = "";
+        lightboxImage.style.opacity = "1";
+
+        lightboxModal.classList.remove("hidden", "opacity-0");
+        lightboxModal.classList.add("flex");
+        lightboxCard.classList.remove("scale-95");
+        lightboxCard.classList.add("scale-100");
+
+        document.body.style.overflow = "hidden";
+        isPhotoAnimating = false;
+      }
+    }
+
+    // Close: fullscreen lightbox -> original gallery card.
+    async function closeLightbox() {
+      if (
+        isPhotoAnimating ||
+        lightboxModal.classList.contains("hidden")
+      ) return;
+
+      isPhotoAnimating = true;
+      let clone;
+      let sourceImage;
+
+      try {
+        const item = filteredItems[currentLightboxIndex];
+
+        sourceImage = item
+          ? document.querySelector(`[data-photo-id="${item.id}"]`)
+          : null;
+
+        if (
+          motionAnimate &&
+          sourceImage &&
+          lightboxImage.complete &&
+          lightboxImage.naturalWidth > 0
+        ) {
+          const { clone: movingImage, rect: startRect } =
+            createPhotoClone(lightboxImage);
+
+          clone = movingImage;
+
+          await waitForFrame();
+
+          const endRect = sourceImage.getBoundingClientRect();
+
+          sourceImage.style.visibility = "hidden";
+          lightboxImage.style.visibility = "hidden";
+
+          lightboxModal.classList.add("opacity-0");
+
+          await animateSharedPhoto(clone, startRect, endRect);
+        }
+      } catch (error) {
+        console.error("Photo closing animation error:", error);
+      } finally {
+        clone?.remove();
+
+        if (sourceImage) {
+          sourceImage.style.visibility = "";
+        }
+
+        lightboxImage.style.visibility = "";
+        lightboxImage.style.opacity = "1";
+
+        lightboxCard.classList.remove("scale-100");
+        lightboxCard.classList.add("scale-95");
+
+        lightboxModal.classList.add("hidden", "opacity-0");
+        lightboxModal.classList.remove("flex");
+
+        document.body.style.overflow = "";
+        isPhotoAnimating = false;
+      }
+    }
+
+    // Navigate photos.
+    function nextPhoto() {
+      if (isPhotoAnimating || filteredItems.length === 0) return;
+
+      currentLightboxIndex =
+        (currentLightboxIndex + 1) % filteredItems.length;
+
+      updateLightboxContent();
+    }
+
+    function prevPhoto() {
+      if (isPhotoAnimating || filteredItems.length === 0) return;
+
+      currentLightboxIndex =
+        (currentLightboxIndex - 1 + filteredItems.length) %
+        filteredItems.length;
+
+      updateLightboxContent();
+    }
+
+    // Share a photo.
+    async function sharePhoto(id) {
+      const item = galleryItems.find(photo => photo.id === id);
+      if (!item) return;
+
+      const imageURL = new URL(item.image, window.location.href).href;
+      const shareData = {
+        title: item.title,
+        text: `${item.title} — ${item.caption}`,
+        url: imageURL
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(imageURL);
+          alert("Photo link copied!");
+        } else {
+          prompt("Copy this photo link:", imageURL);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Sharing failed:", error);
+        }
+      }
+    }
+
+    // Buttons and modal events.
+    document.getElementById("lightbox-close")
+      .addEventListener("click", closeLightbox);
+
+    document.getElementById("lightbox-next")
+      .addEventListener("click", nextPhoto);
+
+    document.getElementById("lightbox-prev")
+      .addEventListener("click", prevPhoto);
+
+    document.getElementById("lightbox-share")
+      .addEventListener("click", () => {
+        const item = filteredItems[currentLightboxIndex];
+        if (item) sharePhoto(item.id);
+      });
+
+    lightboxModal.addEventListener("click", event => {
+      if (event.target === lightboxModal) {
+        closeLightbox();
+      }
+    });
+
+    window.addEventListener("keydown", event => {
+      if (lightboxModal.classList.contains("hidden")) return;
+
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowRight") nextPhoto();
+      if (event.key === "ArrowLeft") prevPhoto();
+    });
+
+    // Initial page render.
+    renderFilters();
+    renderGallery();
+  </script>
+</body>
+</html>
